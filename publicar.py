@@ -16,12 +16,14 @@ Uso:
 import argparse, json, os, sys, time, urllib.parse, urllib.request, urllib.error
 from datetime import datetime, timezone
 
-API = "https://graph.instagram.com/v21.0"
+API_IG = "https://graph.instagram.com/v21.0"   # tokens de Instagram (IGAA...)
+API_FB = "https://graph.facebook.com/v21.0"    # tokens de inicio de sesión unificado (EAA...)
 AQUI = os.path.dirname(os.path.abspath(__file__))
 
 
 def llamar(metodo, ruta, token, datos=None):
-    url = f"{API}/{ruta}"
+    api = API_IG if token.startswith("IG") else API_FB
+    url = f"{api}/{ruta}"
     if metodo == "GET":
         q = dict(datos or {}); q["access_token"] = token
         req = urllib.request.Request(url + "?" + urllib.parse.urlencode(q))
