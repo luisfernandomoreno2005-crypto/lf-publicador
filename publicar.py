@@ -89,7 +89,7 @@ def main():
         cuenta = item["cuenta"]
         ig_id = cfg["cuentas"][cuenta]["ig_user_id"]
         var = "IG_TOKEN_" + cuenta.upper().replace(".", "_")
-        token = os.environ.get(var)
+        token = (os.environ.get(var) or "").strip()
 
         if a.dry_run:
             print(f"[dry-run] {item['id']} → @{cuenta} ({'prueba' if item.get('prueba') else 'normal'}) {item['video_url']}")
