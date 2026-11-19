@@ -1,0 +1,30 @@
+name: Publicar reels
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # cada 30 min revisa la agenda
+  workflow_dispatch:          # también se puede lanzar a mano
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar lo vencido
+        env:
+          IG_TOKEN_LF_PRODUCCIONESS: ${{ secrets.IG_TOKEN_LF_PRODUCCIONESS }}
+        run: python3 publicar.py
+      - name: Guardar estado de la agenda
+        if: always()
+        run: |
+          git config user.name "publicador"
+          git config user.email "publicador@users.noreply.github.com"
+          git add agenda.json
+          git diff --cached --quiet || (git commit -m "agenda: actualizar estado" && git push)

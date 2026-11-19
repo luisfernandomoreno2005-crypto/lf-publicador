@@ -1,0 +1,11 @@
+[
+  {
+    "id": "anatomia-reel",
+    "cuenta": "lf_produccioness",
+    "fecha_utc": "2026-11-19T15:00:00Z",
+    "video_url": "https://EJEMPLO.invalid/anatomia-reel.mp4",
+    "caption": "(se completa desde el calendario de aprobación)",
+    "prueba": true,
+    "estado": "pendiente"
+  }
+]
